@@ -118,6 +118,19 @@ main {
   color: white;
   font-weight: 600;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  display: block;
+}
+
+.mfa-status {
+  margin-top: 0.25rem;
+}
+
+.mfa-indicator {
+  font-size: 0.8rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
 }
 
 /* Auth Buttons */

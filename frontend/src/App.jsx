@@ -5,13 +5,44 @@ import Login from './pages/Login';
 import './App.css';
 
 function App() {
-  const { isLoading, isAuthenticated } = useAuth0();
+  const { isLoading, isAuthenticated, error } = useAuth0();
 
   if (isLoading) {
     return (
       <div className="loading-container">
         <div className="spinner"></div>
         <p>Loading authentication...</p>
+      </div>
+    );
+  }
+
+  // Handle MFA required error
+  if (error && error.error === 'mfa_required') {
+    return (
+      <div className="error-container">
+        <div className="error-message">
+          <h3>Multi-Factor Authentication Required</h3>
+          <p>Please complete the MFA process to access the application.</p>
+          <p>You will be redirected to the MFA setup page.</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Handle other authentication errors
+  if (error) {
+    return (
+      <div className="error-container">
+        <div className="error-message">
+          <h3>Authentication Error</h3>
+          <p>{error.message}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="retry-button"
+          >
+            Try Again
+          </button>
+        </div>
       </div>
     );
   }

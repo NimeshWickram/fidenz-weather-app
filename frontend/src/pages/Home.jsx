@@ -9,7 +9,7 @@ const Home = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [lastUpdated, setLastUpdated] = useState(new Date());
-    const { user } = useAuth0();
+    const { user, getAccessTokenSilently } = useAuth0();
 
     useEffect(() => {
         const fetchWeatherData = async () => {
@@ -72,7 +72,16 @@ const Home = () => {
                     {user?.picture && (
                         <img src={user.picture} alt={user.name} className="user-avatar" />
                     )}
-                    <span className="user-name">Welcome, {user?.name}!</span>
+                    <div>
+                        <span className="user-name">Welcome, {user?.name}!</span>
+                        {user && (
+                            <div className="mfa-status">
+                                <span className="mfa-indicator">
+                                    {user['https://example.com/isMFAEnabled'] ? '🔒 MFA Enabled' : '🔓 MFA Not Enabled'}
+                                </span>
+                            </div>
+                        )}
+                    </div>
                 </div>
                 <LogoutButton />
             </div>
