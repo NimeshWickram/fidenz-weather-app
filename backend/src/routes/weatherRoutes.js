@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const weatherController = require('../controllers/weatherController');
 
+// Test endpoint
+router.get('/test', weatherController.test);
+
 // API endpoint to get weather data for all cities
 router.get('/weather', weatherController.getWeather);
 
