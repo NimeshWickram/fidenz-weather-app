@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { useState } from 'react'
 import React from 'react';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -11,15 +10,22 @@ function App() {
   const isAuthenticated = true; // Placeholder for Part 2
 
   return (
-    <>
-      <header>
-        <h1>Weather Information</h1>
-        {/* Authentication buttons will be implemented in Part 2 */}
+    <div className="app-wrapper">
+      <header className="app-header">
+        <div className="header-content">
+          <h1>🌤️ Weather Dashboard</h1>
+          <p>Real-time weather information for cities around the world</p>
+        </div>
       </header>
       <main>
-        {isAuthenticated ? <Home /> : <Login />}
+        <div className="main-content">
+          {isAuthenticated ? <Home /> : <Login />}
+        </div>
       </main>
-    </>
+      <footer className="app-footer">
+        <p>Powered by OpenWeatherMap • Data updates every 5 minutes</p>
+      </footer>
+    </div>
   );
 }
 
