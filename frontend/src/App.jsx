@@ -2,10 +2,11 @@ import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import { validateUserAccess } from './auth/userValidation';
 import './App.css';
 
 function App() {
-  const { isLoading, isAuthenticated, error } = useAuth0();
+  const { isLoading, isAuthenticated, error, user } = useAuth0();
 
   if (isLoading) {
     return (
@@ -47,6 +48,24 @@ function App() {
     );
   }
 
+  // If user is authenticated, validate access
+  if (isAuthenticated) {
+    const validation = validateUserAccess(user);
+    
+    if (!validation.isValid) {
+      return (
+        <div className="error-container">
+          <div className="error-message">
+            <h3>Access Denied</h3>
+            <p>{validation.reason}</p>
+            <p>Only pre-registered users can access this application.</p>
+            <LogoutButton />
+          </div>
+        </div>
+      );
+    }
+  }
+
   return (
     <div className="app-wrapper">
       <header className="app-header">
@@ -66,5 +85,20 @@ function App() {
     </div>
   );
 }
+
+// We need to define LogoutButton here since it's used in the App component
+const LogoutButton = () => {
+  const { logout } = useAuth0();
+
+  return (
+    <button 
+      onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+      className="auth-button logout-button"
+      style={{ marginTop: '1rem' }}
+    >
+      Log Out
+    </button>
+  );
+};
 
 export default App;

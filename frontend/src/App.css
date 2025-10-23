@@ -182,8 +182,27 @@ main {
 
 .login-container p {
   color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-size: 1.1rem;
+}
+
+.login-info {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem 0;
+  color: white;
+  text-align: left;
+  width: 100%;
+}
+
+.login-info p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.login-info strong {
+  color: #74b9ff;
 }
 
 /* Header Controls */
