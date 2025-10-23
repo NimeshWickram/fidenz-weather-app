@@ -18,7 +18,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 1400px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -32,7 +32,7 @@ body {
   top: 0;
   z-index: 100;
   text-align: center;
-  width: 100%;
+  width: 103.8%;
 }
 
 .header-content {
@@ -55,7 +55,7 @@ body {
   font-size: 1.1rem;
   color: #636e72;
   text-align: center;
-  max-width: 600px;
+  max-width: 100%;
   margin: 0 auto;
   width: 100%;
 }
@@ -130,7 +130,7 @@ main {
   transform: translateY(0);
 }
 
-/* Weather Container - Inline Layout */
+/* Weather Container*/
 .weather-container {
   display: flex;
   flex-direction: row;
@@ -314,7 +314,7 @@ main {
   color: white;
   text-align: center;
   padding: 1.5rem 2rem;
-  width: 100%;
+  width: 103.8%;
   margin-top: auto;
 }
 
@@ -422,4 +422,7 @@ main {
   .app-footer {
     padding: 0.8rem 1rem;
   }
+  html, body {
+  overflow-x: hidden;
+}
 }

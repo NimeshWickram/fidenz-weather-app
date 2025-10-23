@@ -23,7 +23,7 @@ function App() {
         </div>
       </main>
       <footer className="app-footer">
-        <p>Powered by OpenWeatherMap • Data updates every 5 minutes</p>
+        <p>Powered by OpenWeatherMap </p>
       </footer>
     </div>
   );
