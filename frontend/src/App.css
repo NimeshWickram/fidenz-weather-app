@@ -11,6 +11,11 @@ body {
   color: #333;
   min-height: 100vh;
   line-height: 1.6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
 }
 
 .app-wrapper {
@@ -18,8 +23,9 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 /* Header Styles */
@@ -33,6 +39,11 @@ body {
   z-index: 100;
   text-align: center;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0;
+  max-width: 1400px; /* Set maximum width for header */
 }
 
 .header-content {
@@ -41,6 +52,9 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
+  max-width: 1200px;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .header-content h1 {
@@ -66,12 +80,16 @@ body {
   width: 100%;
   max-width: 500px;
   margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .search-form {
   display: flex;
   gap: 0.5rem;
   width: 100%;
+  justify-content: center;
 }
 
 .search-input {
@@ -82,6 +100,7 @@ body {
   font-size: 1rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   outline: none;
+  max-width: 400px;
 }
 
 .search-button {
@@ -106,8 +125,8 @@ body {
 .suggestions-list {
   position: absolute;
   top: 100%;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
   background: white;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -117,12 +136,15 @@ body {
   z-index: 1000;
   max-height: 200px;
   overflow-y: auto;
+  width: 100%;
+  max-width: 500px;
 }
 
 .suggestion-item {
   padding: 0.8rem 1rem;
   cursor: pointer;
   border-bottom: 1px solid #eee;
+  text-align: center;
 }
 
 .suggestion-item:hover {
@@ -142,6 +164,9 @@ main {
   align-items: center;
   justify-content: center;
   width: 100%;
+  box-sizing: border-box;
+  max-width: 1400px; /* Set maximum width for main content */
+  margin: 0 auto;
 }
 
 .main-content {
@@ -150,6 +175,10 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 /* Home Container */
@@ -159,6 +188,8 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 /* User Info */
@@ -172,6 +203,8 @@ main {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 15px;
   backdrop-filter: blur(5px);
+  box-sizing: border-box;
+  max-width: 1400px;
 }
 
 .user-details {
@@ -218,6 +251,9 @@ main {
   font-size: 1rem;
   transition: all 0.3s ease;
   backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .auth-button:hover {
@@ -229,6 +265,7 @@ main {
   padding: 0.8rem 2rem;
   font-size: 1.1rem;
   border-radius: 25px;
+  margin: 0 auto;
 }
 
 /* Login Container */
@@ -245,6 +282,8 @@ main {
   min-height: 300px;
   width: 100%;
   max-width: 500px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .login-container h1 {
@@ -267,6 +306,7 @@ main {
   color: white;
   text-align: left;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .login-info p {
@@ -281,12 +321,14 @@ main {
 /* Header Controls */
 .header-controls {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
   flex-wrap: wrap;
   gap: 1rem;
   width: 100%;
+  box-sizing: border-box;
+  max-width: 1400px;
 }
 
 .last-updated-info {
@@ -295,6 +337,36 @@ main {
   border-radius: 20px;
   font-size: 0.9rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.view-controls {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.view-toggle-button {
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 0.7rem 1.2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.view-toggle-button:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.view-toggle-button.active {
+  background: #0984e3;
+  border-color: #0984e3;
 }
 
 .refresh-button {
@@ -308,6 +380,9 @@ main {
   font-size: 1rem;
   transition: all 0.3s ease;
   box-shadow: 0 4px 10px rgba(9, 132, 227, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .refresh-button:hover {
@@ -330,6 +405,8 @@ main {
   margin-top: 1rem;
   width: 100%;
   padding: 1rem 0;
+  box-sizing: border-box;
+  max-width: 1400px;
 }
 
 /* Weather Card */
@@ -345,6 +422,9 @@ main {
   text-align: center;
   min-width: 280px;
   max-width: 300px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .weather-card:hover {
@@ -363,10 +443,14 @@ main {
   font-size: 1.8rem;
   margin: 0;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 100%;
 }
 
 .weather-icon {
   font-size: 2.5rem;
+  text-align: center;
+  width: 100%;
 }
 
 .weather-info {
@@ -396,11 +480,37 @@ main {
 .weather-footer {
   margin-top: 1rem;
   text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .last-updated {
   font-size: 0.8rem;
   opacity: 0.9;
+}
+
+/* Favorite Button */
+.favorite-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.2s ease;
+  padding: 0;
+  margin: 0;
+  width: auto;
+  height: auto;
+}
+
+.favorite-button:hover {
+  transform: scale(1.2);
+}
+
+.favorite-button.favorited {
+  color: #ffd700;
+  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
 }
 
 /* Loading State */
@@ -416,6 +526,9 @@ main {
   backdrop-filter: blur(5px);
   width: 100%;
   text-align: center;
+  margin: 0 auto;
+  box-sizing: border-box;
+  max-width: 1400px;
 }
 
 .spinner {
@@ -447,6 +560,8 @@ main {
   align-items: center;
   min-height: 300px;
   width: 100%;
+  box-sizing: border-box;
+  max-width: 1400px;
 }
 
 .error-message {
@@ -457,6 +572,8 @@ main {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   max-width: 500px;
   width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .error-message h3 {
@@ -479,6 +596,8 @@ main {
   font-weight: 600;
   font-size: 1rem;
   transition: all 0.3s ease;
+  margin: 0 auto;
+  display: block;
 }
 
 .retry-button:hover {
@@ -496,6 +615,13 @@ main {
   font-size: 1.2rem;
   backdrop-filter: blur(5px);
   width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  max-width: 1400px;
+}
+
+.no-data .auth-button {
+  margin-top: 1rem;
 }
 
 /* Footer */
@@ -506,12 +632,19 @@ main {
   padding: 1.5rem 2rem;
   width: 100%;
   margin-top: auto;
+  box-sizing: border-box;
+  max-width: 1400px; /* Set maximum width for footer */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .app-footer p {
   margin: 0;
   font-size: 0.9rem;
   width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Responsive Design */
@@ -553,6 +686,11 @@ main {
     text-align: center;
   }
   
+  .view-controls {
+    width: 100%;
+    justify-content: center;
+  }
+  
   .refresh-button {
     align-self: center;
   }
@@ -588,10 +726,21 @@ main {
   
   .search-form {
     flex-direction: column;
+    align-items: center;
   }
   
   .search-button {
     align-self: center;
+  }
+  
+  .suggestions-list {
+    left: 0;
+    transform: none;
+  }
+  
+  .user-details {
+    flex-direction: column;
+    text-align: center;
   }
 }
 
@@ -632,5 +781,10 @@ main {
   
   .login-container {
     padding: 2rem 1rem;
+  }
+  
+  .main-content,
+  .home-container {
+    padding: 0 0.5rem;
   }
 }

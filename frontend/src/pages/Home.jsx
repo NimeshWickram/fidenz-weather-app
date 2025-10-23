@@ -4,6 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import WeatherCard from '../components/WeatherCard';
 import LogoutButton from '../components/LogoutButton';
 import SearchBar from '../components/SearchBar';
+import useFavorites from '../hooks/useFavorites';
 
 const Home = () => {
     const [weatherData, setWeatherData] = useState([]);
@@ -13,6 +14,8 @@ const Home = () => {
     const [lastUpdated, setLastUpdated] = useState(new Date());
     const { user } = useAuth0();
     const [cities, setCities] = useState([]);
+    const { favorites, toggleFavorite, isFavorite } = useFavorites();
+    const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
     useEffect(() => {
         const fetchCities = async () => {
@@ -77,6 +80,15 @@ const Home = () => {
         window.location.reload();
     };
 
+    const toggleFavoritesView = () => {
+        setShowFavoritesOnly(!showFavoritesOnly);
+    };
+
+    // Filter weather data based on favorites view
+    const displayedWeatherData = showFavoritesOnly 
+        ? weatherData.filter(city => isFavorite(city.id))
+        : weatherData;
+
     if (loading) {
         return (
             <div className="loading-container">
@@ -127,19 +139,37 @@ const Home = () => {
                 <div className="last-updated-info">
                     Last updated: {lastUpdated.toLocaleTimeString()}
                 </div>
-                <button onClick={handleRefresh} className="refresh-button">
-                    ↻ Refresh
-                </button>
+                <div className="view-controls">
+                    <button 
+                        onClick={toggleFavoritesView}
+                        className={`view-toggle-button ${showFavoritesOnly ? 'active' : ''}`}
+                    >
+                        {showFavoritesOnly ? 'Show All Cities' : 'Show Favorites Only'}
+                    </button>
+                    <button onClick={handleRefresh} className="refresh-button">
+                        ↻ Refresh
+                    </button>
+                </div>
             </div>
             
-            {weatherData.length === 0 ? (
+            {displayedWeatherData.length === 0 ? (
                 <div className="no-data">
-                    <p>No weather data available</p>
+                    <p>{showFavoritesOnly ? 'No favorite cities added yet.' : 'No weather data available'}</p>
+                    {!showFavoritesOnly && (
+                        <button onClick={toggleFavoritesView} className="auth-button">
+                            View Favorites
+                        </button>
+                    )}
                 </div>
             ) : (
                 <div className="weather-container">
-                    {weatherData.map((city) => (
-                        <WeatherCard key={city.id} city={city} />
+                    {displayedWeatherData.map((city) => (
+                        <WeatherCard 
+                            key={city.id} 
+                            city={city} 
+                            isFavorite={isFavorite(city.id)}
+                            onToggleFavorite={toggleFavorite}
+                        />
                     ))}
                 </div>
             )}

@@ -1,7 +1,8 @@
 import React from 'react';
+import FavoriteButton from './FavoriteButton';
 import '../App.css';
 
-const WeatherCard = ({ city }) => {
+const WeatherCard = ({ city, isFavorite, onToggleFavorite }) => {
   // Function to get weather icon based on description
   const getWeatherIcon = (description) => {
     const desc = description.toLowerCase();
@@ -54,6 +55,11 @@ const WeatherCard = ({ city }) => {
         </p>
       </div>
       <div className="weather-footer">
+        <FavoriteButton 
+          city={city}
+          isFavorite={isFavorite}
+          onToggleFavorite={onToggleFavorite}
+        />
         <span className="last-updated">Updated just now</span>
       </div>
     </div>

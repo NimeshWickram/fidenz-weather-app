@@ -26,8 +26,8 @@ function App() {
           <h3>Authentication Error</h3>
           <p>{error.message}</p>
           <p>Error: {error.error}</p>
-          <button 
-            onClick={() => window.location.reload()} 
+          <button
+            onClick={() => window.location.reload()}
             className="retry-button"
           >
             Try Again
@@ -40,7 +40,7 @@ function App() {
   // If user is authenticated, validate access
   if (isAuthenticated) {
     const validation = validateUserAccess(user);
-    
+
     if (!validation.isValid) {
       return (
         <div className="error-container">
@@ -80,7 +80,7 @@ const LogoutButton = () => {
   const { logout } = useAuth0();
 
   return (
-    <button 
+    <button
       onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
       className="auth-button logout-button"
       style={{ marginTop: '1rem' }}
