@@ -3,20 +3,33 @@ import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
 import WeatherCard from '../components/WeatherCard';
 import LogoutButton from '../components/LogoutButton';
+import SearchBar from '../components/SearchBar';
 
 const Home = () => {
     const [weatherData, setWeatherData] = useState([]);
+    const [allWeatherData, setAllWeatherData] = useState([]); // Store all data for search
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [lastUpdated, setLastUpdated] = useState(new Date());
-    const { user, getAccessTokenSilently } = useAuth0();
+    const { user } = useAuth0();
+    const [cities, setCities] = useState([]);
 
     useEffect(() => {
+        const fetchCities = async () => {
+            try {
+                const response = await axios.get('http://localhost:3001/api/cities');
+                setCities(response.data);
+            } catch (err) {
+                console.error('Error fetching cities:', err);
+            }
+        };
+
         const fetchWeatherData = async () => {
             try {
                 setLoading(true);
-                // Replace with your backend URL
+                // Fetch all weather data
                 const response = await axios.get('http://localhost:3001/api/weather');
+                setAllWeatherData(response.data);
                 setWeatherData(response.data);
                 setError(null);
                 setLastUpdated(new Date());
@@ -28,6 +41,7 @@ const Home = () => {
             }
         };
 
+        fetchCities();
         fetchWeatherData();
 
         // Refresh data every 5 minutes (300000 ms)
@@ -37,6 +51,27 @@ const Home = () => {
         
         return () => clearInterval(interval);
     }, []);
+
+    const handleSearch = async (searchTerm) => {
+        try {
+            // Filter the existing data based on search term
+            const filteredData = allWeatherData.filter(city =>
+                city.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            
+            if (filteredData.length > 0) {
+                setWeatherData(filteredData);
+            } else {
+                // If no matches found in existing data, try to fetch specific city data
+                // This would require implementing a search endpoint in the backend
+                setError(`No cities found matching "${searchTerm}"`);
+                setTimeout(() => setError(null), 3000); // Clear error after 3 seconds
+            }
+        } catch (err) {
+            console.error('Error searching weather data:', err);
+            setError('Failed to search weather data.');
+        }
+    };
 
     const handleRefresh = () => {
         window.location.reload();
@@ -85,6 +120,8 @@ const Home = () => {
                 </div>
                 <LogoutButton />
             </div>
+            
+            <SearchBar onSearch={handleSearch} cities={cities} />
             
             <div className="header-controls">
                 <div className="last-updated-info">
