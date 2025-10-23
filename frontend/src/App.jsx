@@ -1,13 +1,20 @@
-import { useState } from 'react'
 import React from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import './App.css';
 
 function App() {
-  // For Part 1, we'll always show the Home component
-  // Authentication will be implemented in Part 2
-  const isAuthenticated = true; // Placeholder for Part 2
+  const { isLoading, isAuthenticated } = useAuth0();
+
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div>
+        <p>Loading authentication...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="app-wrapper">
@@ -29,4 +36,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

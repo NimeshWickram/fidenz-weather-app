@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useAuth0 } from '@auth0/auth0-react';
 import WeatherCard from '../components/WeatherCard';
+import LogoutButton from '../components/LogoutButton';
 
 const Home = () => {
     const [weatherData, setWeatherData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [lastUpdated, setLastUpdated] = useState(new Date());
+    const { user } = useAuth0();
 
     useEffect(() => {
         const fetchWeatherData = async () => {
@@ -64,6 +67,16 @@ const Home = () => {
 
     return (
         <div className="home-container">
+            <div className="user-info">
+                <div className="user-details">
+                    {user?.picture && (
+                        <img src={user.picture} alt={user.name} className="user-avatar" />
+                    )}
+                    <span className="user-name">Welcome, {user?.name}!</span>
+                </div>
+                <LogoutButton />
+            </div>
+            
             <div className="header-controls">
                 <div className="last-updated-info">
                     Last updated: {lastUpdated.toLocaleTimeString()}

@@ -1,13 +1,14 @@
 import React from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const LogoutButton = () => {
-  // This is a placeholder for Part 2 implementation
-  const handleLogout = () => {
-    console.log('Logout button clicked');
-  };
+  const { logout } = useAuth0();
 
   return (
-    <button onClick={handleLogout} className="logout-button">
+    <button 
+      onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+      className="auth-button logout-button"
+    >
       Log Out
     </button>
   );
