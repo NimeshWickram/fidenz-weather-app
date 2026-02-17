@@ -14,7 +14,7 @@ const cache = new NodeCache({ stdTTL: 300 });
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3001', 'https://fidenz-weather-app-sooty.vercel.app/'],
+  origin: ['http://localhost:3001', 'http://localhost:5173', 'https://fidenz-weather-app-sooty.vercel.app'],
   credentials: true
 }));
 app.use(express.json());
