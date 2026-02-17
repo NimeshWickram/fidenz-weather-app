@@ -13,7 +13,10 @@ const port = process.env.PORT || 3001;
 const cache = new NodeCache({ stdTTL: 300 });
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3001', 'https://fidenz-weather-app-sooty.vercel.app/'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Load cities from JSON file
@@ -41,14 +44,14 @@ async function fetchWeatherData(cityId) {
     // If not in cache, fetch from API
     console.log(`Fetching data from API for city ID: ${cityId}`);
     const API_KEY = process.env.OPENWEATHER_API_KEY;
-    
+
     if (!API_KEY) {
       throw new Error('OpenWeatherMap API key is missing. Please set OPENWEATHER_API_KEY in .env file.');
     }
-    
+
     const url = `https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${API_KEY}&units=metric`;
     const response = await axios.get(url);
-    
+
     const weatherData = {
       id: response.data.id,
       name: response.data.name,
@@ -58,11 +61,11 @@ async function fetchWeatherData(cityId) {
       pressure: response.data.main.pressure,
       windSpeed: response.data.wind.speed
     };
-    
+
     // Store in cache
     cache.set(cityId.toString(), weatherData);
     console.log(`Data cached for city ID: ${cityId}`);
-    
+
     return weatherData;
   } catch (error) {
     console.error(`Error fetching weather data for city ID ${cityId}:`, error.message);
