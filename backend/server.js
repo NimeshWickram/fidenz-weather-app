@@ -20,7 +20,7 @@ app.use(cors({
 app.use(express.json());
 
 // Load cities from JSON file
-const citiesFilePath = path.join(__dirname, 'cities.json');
+const citiesFilePath = path.join(__dirname, 'src', 'data', 'cities.json');
 let cities = [];
 
 try {
