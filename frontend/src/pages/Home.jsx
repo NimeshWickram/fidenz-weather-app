@@ -5,6 +5,7 @@ import WeatherCard from '../components/WeatherCard';
 import LogoutButton from '../components/LogoutButton';
 import SearchBar from '../components/SearchBar';
 import useFavorites from '../hooks/useFavorites';
+import API_BASE_URL from '../config/api';
 
 const Home = () => {
     const [weatherData, setWeatherData] = useState([]);
@@ -20,7 +21,7 @@ const Home = () => {
     useEffect(() => {
         const fetchCities = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/api/cities');
+                const response = await axios.get(`${API_BASE_URL}/api/cities`);
                 setCities(response.data);
             } catch (err) {
                 console.error('Error fetching cities:', err);
@@ -31,7 +32,7 @@ const Home = () => {
             try {
                 setLoading(true);
                 // Fetch all weather data
-                const response = await axios.get('http://localhost:3001/api/weather');
+                const response = await axios.get(`${API_BASE_URL}/api/weather`);
                 setAllWeatherData(response.data);
                 setWeatherData(response.data);
                 setError(null);
