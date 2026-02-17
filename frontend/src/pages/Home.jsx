@@ -52,7 +52,7 @@ const Home = () => {
         const interval = setInterval(() => {
             fetchWeatherData();
         }, 300000);
-        
+
         return () => clearInterval(interval);
     }, []);
 
@@ -62,7 +62,7 @@ const Home = () => {
             const filteredData = allWeatherData.filter(city =>
                 city.name.toLowerCase().includes(searchTerm.toLowerCase())
             );
-            
+
             if (filteredData.length > 0) {
                 setWeatherData(filteredData);
             } else {
@@ -86,7 +86,7 @@ const Home = () => {
     };
 
     // Filter weather data based on favorites view
-    const displayedWeatherData = showFavoritesOnly 
+    const displayedWeatherData = showFavoritesOnly
         ? weatherData.filter(city => isFavorite(city.id))
         : weatherData;
 
@@ -133,15 +133,15 @@ const Home = () => {
                 </div>
                 <LogoutButton />
             </div>
-            
+
             <SearchBar onSearch={handleSearch} cities={cities} />
-            
+
             <div className="header-controls">
                 <div className="last-updated-info">
                     Last updated: {lastUpdated.toLocaleTimeString()}
                 </div>
                 <div className="view-controls">
-                    <button 
+                    <button
                         onClick={toggleFavoritesView}
                         className={`view-toggle-button ${showFavoritesOnly ? 'active' : ''}`}
                     >
@@ -152,7 +152,7 @@ const Home = () => {
                     </button>
                 </div>
             </div>
-            
+
             {displayedWeatherData.length === 0 ? (
                 <div className="no-data">
                     <p>{showFavoritesOnly ? 'No favorite cities added yet.' : 'No weather data available'}</p>
@@ -165,9 +165,9 @@ const Home = () => {
             ) : (
                 <div className="weather-container">
                     {displayedWeatherData.map((city) => (
-                        <WeatherCard 
-                            key={city.id} 
-                            city={city} 
+                        <WeatherCard
+                            key={city.id}
+                            city={city}
                             isFavorite={isFavorite(city.id)}
                             onToggleFavorite={toggleFavorite}
                         />
