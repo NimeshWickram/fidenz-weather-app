@@ -25,8 +25,20 @@ let cities = [];
 
 try {
   const citiesData = fs.readFileSync(citiesFilePath, 'utf8');
-  cities = JSON.parse(citiesData);
-  console.log('Cities loaded successfully');
+  const parsedData = JSON.parse(citiesData);
+  // Handle both array format and object with List property
+  const cityList = Array.isArray(parsedData) ? parsedData : parsedData.List || [];
+  
+  // Transform cities to have 'id' property for API consistency
+  cities = cityList.map(city => ({
+    id: parseInt(city.CityCode),
+    name: city.CityName,
+    code: city.CityCode,
+    temp: city.Temp,
+    status: city.Status
+  }));
+  
+  console.log(`Cities loaded successfully: ${cities.length} cities`);
 } catch (error) {
   console.error('Error loading cities:', error);
 }
@@ -76,13 +88,18 @@ async function fetchWeatherData(cityId) {
 // API endpoint to get weather data for all cities
 app.get('/api/weather', async (req, res) => {
   try {
-    console.log('Fetching weather data for all cities');
+    console.log(`Fetching weather data for ${cities.length} cities`);
+    
+    if (cities.length === 0) {
+      return res.status(500).json({ error: 'No cities loaded from database' });
+    }
+    
     const weatherPromises = cities.map(city => fetchWeatherData(city.id));
     const weatherData = await Promise.all(weatherPromises);
     res.json(weatherData);
   } catch (error) {
     console.error('Error in /api/weather endpoint:', error.message);
-    res.status(500).json({ error: 'Failed to fetch weather data' });
+    res.status(500).json({ error: 'Failed to fetch weather data', details: error.message });
   }
 });
 
